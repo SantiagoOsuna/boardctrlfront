@@ -478,8 +478,23 @@ const EditSlideModal = ({ isOpen, onClose, slideToEdit, onSave }) => {
                 <input
                     type="number"
                     value={editedTime}
-                    onChange={(e) => setEditedTime(e.target.value)}
                     placeholder="Tiempo(min)"
+                    onChange={(e) => {
+                        const value = e.target.value;
+
+                        // Permitir solo numeros y limitar a 5 digitos
+                        if (/^\d{0,5}$/.test(value) && (value === '' || parseInt(value) <= 10000)) {
+                            setEditedTime(value);
+                        }
+                    }}
+                    min="1"
+                    max="10000"
+                    onKeyDown={(e) => {
+                    // Previene la entrada de caracteres no numericos
+                    if (e.key === '-' || e.key === '+' || e.key === 'e'){
+                        e.preventDefault();
+                    }
+                }}
                     className="w-full p-2 mb-3 border rounded-md focus:outline-none focus:ring-2 
                     focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
                 />

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaEyeSlash, FaUserCircle, FaEye } from "react-icons/fa";
-import Register from './Register';
 
 // Componente principal de la pantalla de inicio de sesion
 const Login = () => {
@@ -83,9 +82,6 @@ const Login = () => {
         <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-green-900 to-green-400 text-white">
             <div className="bg-green-900 bg-opacity-80 p-8 rounded-2xl w-96 shadow-lg relative">
                 <div className="text-center text-4xl font-bold mb-6 uppercase text-white">Board CTRL</div>
-                {showRegister ? (
-                    <Register />
-                ) : (
                     <form onSubmit={handleSubmit}>
                         <h1 className="text-3xl mb-6 ml-28">LOGIN</h1>
                         <div className="relative mb-6">
@@ -121,11 +117,7 @@ const Login = () => {
                         <button type="submit" className="w-full py-2 bg-green-500 hover:bg-green-600 rounded-full text-lg font-semibold">
                             Login
                         </button>
-                        <div className="text-center text-sm mt-4">
-                            <p>No tienes cuenta? <a href="#" onClick={() => navigate('/Register')} className="text-green-400 underline">Register</a></p>
-                        </div>
                     </form>
-                )}
                 <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-sm opacity-80">FINANZAUTO</div>
             </div>
         </div>
