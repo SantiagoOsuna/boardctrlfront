@@ -30,7 +30,7 @@ useEffect(() => {
                 return;
             }
 
-            const response = await axios.get(`https://localhost:7296/api/Categories/FullCategories?page=${page}&pageSize=${pageSize}`,{
+            const response = await axios.get(`https://localhost:7296/api/v2/categories?page=${page}&pageSize=${pageSize}`,{
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

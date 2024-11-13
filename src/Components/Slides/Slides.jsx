@@ -34,7 +34,7 @@ const Slides = () => {
     const fetchSlides = async (boardId) => {
         const token = localStorage.getItem('token');
         try {
-            const response = await axios.get(`https://localhost:7296/api/Slides/List-Slide-by-board?boardId=${boardId}`, {
+            const response = await axios.get(`https://localhost:7296/api/v2/slides/list-slides-by-board?boardId=${boardId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -178,7 +178,7 @@ const Slides = () => {
         };
 
         try {
-            const response = await axios.post('https://localhost:7296/api/Slides/Create', newSlide, config);
+            const response = await axios.post('https://localhost:7296/api/v2/slides', newSlide, config);
             setSlides([...slides, response.data]); // Agregar el slide recién creado
             resetForm();
             showMessage("Slide creado exitosamente.", "success");

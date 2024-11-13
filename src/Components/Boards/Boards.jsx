@@ -87,7 +87,7 @@ const Boards = () => {
     const fetchCategories = async (page) => {
         const token = localStorage.getItem('token');
         try {
-            const response = await axios.get(`https://localhost:7296/api/Categories/FullCategories?page=${page}&pageSize=5`, {
+            const response = await axios.get(`https://localhost:7296/api/v2/categories?page=${page}&pageSize=5`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -289,7 +289,7 @@ const Boards = () => {
         };
 
         try {
-            const response = await axios.post('https://localhost:7296/api/Board/Create', newBoard, {
+            const response = await axios.post('https://localhost:7296/api/v2/boards', newBoard, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
