@@ -65,7 +65,6 @@ const Boards = () => {
                     totalPages: boardTotalPages || 1,
                     isOpen: false
                 };
-                
                 totalPagesMap[category.categoryId] = boardTotalPages || 1;
             }
 
@@ -87,7 +86,7 @@ const Boards = () => {
     const fetchCategories = async (page) => {
         const token = localStorage.getItem('token');
         try {
-            const response = await axios.get(`https://localhost:7296/api/v2/categories?page=${page}&pageSize=5`, {
+            const response = await axios.get(`https://localhost:7296/api/Categories/FullCategories?page=${page}&pageSize=5`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -238,14 +237,15 @@ const Boards = () => {
             return;
 
         const token = localStorage.getItem('token');
-        // Construye el objeto con solo los campos que tienen datos
-        const updatedBoard = {};
-            if (newTitle) updatedBoard.titleBoard = newTitle;
-            if (newDescription) updatedBoard.descriptionBoard = newDescription;
-            updatedBoard.statusBoard = statusBoard;
+        const updatedBoard = {
+            boardId: editingBoard,
+            titleBoard: newTitle,
+            descriptionBoard: newDescription,
+            statusBoard: statusBoard
+        };
 
         try {
-            await axios.patch(`https://localhost:7296/api/v2/boards?id=${editingBoard}`, updatedBoard, {
+            await axios.put(`https://localhost:7296/api/Board/Update?id=${editingBoard}`, updatedBoard, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -254,7 +254,6 @@ const Boards = () => {
             // Llamada a loadCategoriesAndBoards para recargar las categorias y tableros tras la edición
             await loadCategoriesAndBoards();
             setMessage({ text: 'Tablero actualizado correctamente', type: 'success' });
-            
             // Resetear los estados de edición
             setEditingBoard(null);
             setNewTitle('');
@@ -289,7 +288,7 @@ const Boards = () => {
         };
 
         try {
-            const response = await axios.post('https://localhost:7296/api/v2/boards', newBoard, {
+            const response = await axios.post('https://localhost:7296/api/Board/Create', newBoard, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
