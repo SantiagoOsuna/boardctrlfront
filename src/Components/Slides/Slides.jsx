@@ -275,10 +275,14 @@ const Slides = () => {
         };
 
         try {
-            await axios.put(`https://localhost:7296/api/Slides/Update?id=${updatedSlide.slideId}`, updatedSlide, config);
+            await axios.patch(`https://localhost:7296/api/v2/slides?id=${updatedSlide.slideId}`, updatedSlide, config);
+            
             const updatedSlides = slides.map(slide => 
-                slide.slideId === updatedSlide.slideId ? updatedSlide : slide
+                slide.slideId === updatedSlide.slideId 
+                ? { ...slide, ...updatedSlide }
+                :slide
             );
+
             setSlides(updatedSlides);
             showMessage("Slide actualizado exitosamente.", "success");
         } catch (error) {
@@ -444,12 +448,13 @@ const EditSlideModal = ({ isOpen, onClose, slideToEdit, onSave }) => {
     if (!isOpen || !slideToEdit) return null;
 
     const handleSave = () => {
-        const updatedSlide = {
-            ...slideToEdit,
-            titleSlide: editedTitle,
-            uRL: editedUrl,
-            time: editedTime
-        };
+        const updatedSlide = {}
+            if (editedTitle !== slideToEdit.titleSlide) updatedSlide.titleSlide = editedTitle;
+            if (editedUrl !== slideToEdit.uRL) updatedSlide.uRL = editedUrl;
+            if (editedTime !== slideToEdit.time) updatedSlide.time = editedTime;
+            
+        updatedSlide.slideId = slideToEdit.slideId;
+
         onSave(updatedSlide);
     };
 

@@ -104,7 +104,7 @@ const handleAddCategory = async () => {
             return;
         }
 
-        const response = await axios.post('https://localhost:7296/api/Categories/create', {
+        const response = await axios.post('https://localhost:7296/api/v2/categories', {
             titleCategory: newCategory,
             statusCategory: true
         }, {
@@ -174,8 +174,7 @@ const handleUpdateCategory = async () => {
             return;
         }
 
-        await axios.put(`https://localhost:7296/api/Categories/${editingCategoryId}`, {
-            categoryId: editingCategoryId,
+        await axios.patch(`https://localhost:7296/api/v2/categories?id=${editingCategoryId}`, {
             titleCategory: editingTitleCategory,
             statusCategory: true
         }, {
