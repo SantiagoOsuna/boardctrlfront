@@ -341,7 +341,7 @@ const Boards = () => {
     const handleMostrar = async (boardId) => {
         const token = localStorage.getItem('token');
         try {
-            const response = await axios.get(`https://localhost:7296/api/Slides/List-Slide-by-board?boardId=${boardId}`, {
+            const response = await axios.get(`https://localhost:7296/api/v2/slides/list-slides-by-board?boardId=${boardId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

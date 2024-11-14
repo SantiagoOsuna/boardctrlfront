@@ -135,11 +135,14 @@ const handleToggleCategory = async (categoryId) => {
             return;
         }
 
-        const response = await axios.delete(`https://localhost:7296/api/Categories/${categoryId}?activate=${!isActive}`,{
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
+        await axios.patch(`https://localhost:7296/api/v2/categories?id=${categoryId}`,
+            { StatusCategory: !isActive },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
 
         // Alternar el estado de habilitación de la categoria en el estado local
         setCategorias(categorias.map(categoria =>
@@ -297,9 +300,9 @@ const toggleMenu = () => {
             </ul>
     
             <div className="pagination flex justify-center mt-4">
-                <button className="page-button bg-gray-300 text-black hover:bg-gray-500 transition duration-300 rounded-lg px-3 py-1 mx-1 cursor-pointer" onClick={() => handlePageChange(page - 1)} disabled={page === 1}>Anterior</button>
+                <button className="page-button bg-gray-200 text-black hover:bg-gray-300 transition duration-300 rounded-lg px-3 py-1 mx-1 cursor-pointer" onClick={() => handlePageChange(page - 1)} disabled={page === 1}>Anterior</button>
                 <span className="text-gray-700">Página {page} de {totalPages}</span>
-                <button className="page-button bg-gray-300 text-black hover:bg-gray-500 transition duration-300 rounded-lg px-3 py-1 mx-1" onClick={() => handlePageChange(page + 1)} disabled={page === totalPages}>Siguiente</button>
+                <button className="page-button bg-gray-200 text-black hover:bg-gray-300 transition duration-300 rounded-lg px-3 py-1 mx-1" onClick={() => handlePageChange(page + 1)} disabled={page === totalPages}>Siguiente</button>
             </div>
     
             {showNotification && (

@@ -211,7 +211,6 @@ const Slides = () => {
         }
 
         const updatedStatus = !slideToToggle.statusSlide;
-
         const token = localStorage.getItem('token');
         const config = {
             headers: {
@@ -221,7 +220,10 @@ const Slides = () => {
 
         try {
             // Llama al endpoint para cambiar el estado del slide
-            await axios.delete(`https://localhost:7296/api/Slides/${slideToToggle.slideId}?activate=${updatedStatus}`, config);
+            await axios.patch(`https://localhost:7296/api/v2/slides?id=${slideToToggle.slideId}`, 
+                {statusSlide: updatedStatus }, 
+                config
+            );
 
             // Actualiza el estado local para reflejar el cambio
             const updatedSlides = slides.map((slide, i) =>
